@@ -58,7 +58,7 @@ def ask_question_gui(question, options, correct_answer, current, total):
         maxvalue=len(options)
     )
 
-    # Usuário cancelou
+    # user cancelled
     if choice is None:
         return None
 
