@@ -1,134 +1,116 @@
 # Quiz Game Launcher
 
-A desktop quiz-based game launcher built with Python and Tkinter that requires the user to complete a trivia challenge before launching a game.
+A desktop quiz-based game launcher built with Python and Tkinter. The user must complete a trivia challenge before launching the selected game.
 
-The application fetches multiple-choice questions from the Open Trivia DB API. The user selects a difficulty level, answers a set of trivia questions through a graphical interface, and the game launches only if all answers are correct. If the user fails the challenge, the system shuts down after a configurable delay.
-
----
+The app fetches multiple-choice questions from the Open Trivia DB API. If all answers are correct, the game launches. If the user fails, the system can shut down after a configurable delay.
 
 ## Features
 
-* Graphical interface built with Tkinter
-
-* File browser to select the game executable
-
-* Selectable difficulty levels:
-
-  * **Easy:** 1 question
-  * **Medium:** 2 questions
-  * **Hard:** 3 questions
-
-* Fetches random trivia questions from the Open Trivia DB API
-
-* Displays shuffled multiple-choice answers
-
-* Interactive quiz dialogs with real-time feedback
-
-* Tracks score during the challenge
-
-* Launches the game only if all answers are correct
-
-* Optional system shutdown on failure
-
-* Safe mode for development (disable shutdown)
-
-* Validation of executable path
-
-* Error handling for API failures and invalid inputs
-
-* Centralized configuration system
-
----
+- Tkinter-based graphical interface
+- File browser to select the game executable
+- Saved games list with persistent shortcuts
+- Load the last used game quickly
+- Remove invalid or outdated paths automatically
+- Difficulty levels: Easy, Medium, Hard
+- Random trivia questions with shuffled answers
+- Score tracking during the challenge
+- Optional system shutdown on failure
+- JSON-based persistence for saved game paths
+- Retry logic for API requests
 
 ## Technologies Used
 
-* Python
-* Tkinter (GUI)
-* Requests
-* Open Trivia DB API
+- Python
+- Tkinter
+- Requests
+- Open Trivia DB API
 
----
+## Installation
+
+1. Create or activate your Python environment.
+2. Install the dependencies:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+3. Run the launcher:
+
+    ```bash
+    python main.py
+    ```
 
 ## Configuration
 
-Before running the application, configure the following variables in `main.py`:
+Before running the application, review the following values in `main.py`:
 
 ```python
 GAME_PATH = r'path_to_your_game_launcher'
-
 SHUTDOWN_DELAY = 10
 ENABLE_SHUTDOWN = True
 
 DIFFICULTY_SETTINGS = {
     'easy': 1,
     'medium': 2,
-    'hard': 3
+    'hard': 3,
 }
 ```
 
-* `GAME_PATH`: path to the game executable
-* `SHUTDOWN_DELAY`: delay before shutdown in seconds
-* `ENABLE_SHUTDOWN`: enables/disables shutdown behavior (recommended OFF during development)
-* `DIFFICULTY_SETTINGS`: number of questions per difficulty
+## Data Persistence
 
----
+Saved game paths are stored in:
+
+```text
+data/.quiz_launcher.json
+```
+
+The file stores up to 10 recent games, removes invalid paths automatically, and keeps the most recently used entries at the top.
 
 ## Usage
 
-1. Run the application:
-
-```bash
-python main.py
-```
-
-2. Select the game executable using the **Browse** button
-3. Choose a difficulty level
-4. Click **START QUIZ & PLAY**
-5. Answer all questions correctly to launch the game
-
----
+1. Select the game executable using the Browse button.
+2. Optionally save it as a shortcut.
+3. Choose a difficulty level.
+4. Click Start Quiz & Play.
+5. Answer all questions correctly to launch the game.
 
 ## Rules
 
-* **Easy:** answer 1 question correctly
-* **Medium:** answer 2 questions correctly
-* **Hard:** answer 3 questions correctly
-* If all answers are correct, the selected game launches
-* If any answer is incorrect, the system may shut down (depending on configuration)
-
----
+- Easy: answer 1 question correctly
+- Medium: answer 2 questions correctly
+- Hard: answer 3 questions correctly
+- If all answers are correct, the selected game launches
+- If any answer is incorrect, the system may shut down depending on configuration
 
 ## Safety Notice
 
-> By default, the application is configured to shut down the system if the quiz is failed.
->
-> You can disable this behavior during development:
->
-> ```python
-> ENABLE_SHUTDOWN = False
-> ```
+By default, the application can shut down the system if the quiz is failed.
 
----
+To disable this behavior during development, set:
+
+```python
+ENABLE_SHUTDOWN = False
+```
 
 ## Preview
 
-![Quiz Preview](./assets/QuizPreview.png)
+![Quiz Preview](./assets/QuizPreview.png) 
 
----
+## Project Structure
 
-## Project Structure (current)
-
-```
+```text
 main.py        # Main application (GUI + logic)
+requirements.txt # Python dependencies
+data/          # Persistent storage (JSON settings)
 assets/        # Screenshots and media
+README.md      # Project documentation
 ```
-
----
 
 ## Future Improvements
 
-* Replace numeric input with clickable answer buttons (better UX)
-* Persistent statistics (JSON or SQLite)
-* Multiple game support (true launcher system)
-* Improved UI layout (grid system / better styling)
-* Modular architecture (separate UI, logic, and services)
+- Replace numeric input with clickable answer buttons
+- Add persistent player statistics (JSON or SQLite)
+- Support multiple games in the launcher
+- Improve the UI layout and styling
+- Split the app into separate modules for UI, logic, and storage
+- Use async API calls to avoid UI freezing
